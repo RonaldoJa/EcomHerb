@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { getAllProducts } from "@/services/productService";
+import { getAllProducts, getSaleProducts } from "@/services/productService";
 import { ProductGrid } from "@/components/product/ProductGrid";
 import { Button } from "@/components/ui/Button";
 import { STORE_NAME } from "@/lib/constants";
@@ -12,7 +12,10 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function HomePage() {
-  const products = await getAllProducts();
+  const [products, saleProducts] = await Promise.all([
+    getAllProducts(),
+    getSaleProducts(),
+  ]);
   const featured = products.slice(0, 6);
 
   return (
@@ -36,14 +39,39 @@ export default async function HomePage() {
                 Ver catálogo
               </Button>
             </Link>
-            <Link href="/catalogo">
-              <Button variant="ghost" className="px-6 py-3 text-base rounded-2xl">
-                ¿Cómo funciona?
-              </Button>
-            </Link>
+            {saleProducts.length > 0 && (
+              <Link href="#ofertas">
+                <Button variant="ghost" className="px-6 py-3 text-base rounded-2xl">
+                  🏷️ Ver ofertas
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </section>
+
+      {/* Ofertas — Lemon swatch (only when there are sale products) */}
+      {saleProducts.length > 0 && (
+        <section id="ofertas" className="bg-[#d08a11] py-14 px-4 sm:px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[1.08px] text-[#f8cc65] mb-1">
+                  Tiempo limitado
+                </p>
+                <h2 className="text-2xl sm:text-3xl font-semibold text-white leading-tight flex items-center gap-2">
+                  🏷️ Ofertas especiales
+                </h2>
+              </div>
+              <Link href="/catalogo"
+                className="text-sm text-[#f8cc65] hover:text-white transition-colors font-medium self-start sm:self-auto">
+                Ver catálogo completo →
+              </Link>
+            </div>
+            <ProductGrid products={saleProducts} />
+          </div>
+        </section>
+      )}
 
       {/* Categories section — Matcha swatch */}
       <section className="bg-[#02492a] py-14 px-4 sm:px-6">
@@ -88,7 +116,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* How it works — 3 steps */}
+      {/* How it works */}
       <section className="border-b border-[#dad4c8] bg-[#faf9f7] py-12 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">

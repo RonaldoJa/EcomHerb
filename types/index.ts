@@ -7,6 +7,8 @@ export interface IProduct {
   imageUrl: string;
   category: string;
   inStock: boolean;
+  onSale: boolean;
+  salePrice?: number;
 }
 
 export interface ICartItem extends IProduct {

@@ -3,6 +3,7 @@
 import { createContext, useState, useCallback, ReactNode } from "react";
 import type { ICartContext, ICartItem, IProduct } from "@/types";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { getEffectivePrice } from "@/lib/utils/saleUtils";
 import { CART_STORAGE_KEY } from "@/lib/constants";
 
 export const CartContext = createContext<ICartContext | null>(null);
@@ -56,7 +57,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const closeCart = useCallback(() => setIsOpen(false), []);
 
   const cartTotal = items.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + getEffectivePrice(item) * item.quantity,
     0
   );
 

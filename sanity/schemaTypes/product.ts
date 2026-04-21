@@ -61,12 +61,41 @@ export const productSchema = defineType({
       type: "boolean",
       initialValue: true,
     }),
+    defineField({
+      name: "onSale",
+      title: "¿En oferta?",
+      type: "boolean",
+      initialValue: false,
+      description: "Activa esto para marcar el producto como oferta y mostrar el precio rebajado.",
+    }),
+    defineField({
+      name: "salePrice",
+      title: "Precio de oferta (USD)",
+      type: "number",
+      description: "Precio rebajado. Solo aplica si '¿En oferta?' está activo.",
+      validation: (rule) =>
+        rule.custom((salePrice, context) => {
+          const doc = context.document as { onSale?: boolean; price?: number };
+          if (doc?.onSale && !salePrice) return "Debes ingresar el precio de oferta.";
+          if (salePrice && doc?.price && salePrice >= doc.price)
+            return "El precio de oferta debe ser menor al precio original.";
+          return true;
+        }),
+    }),
   ],
   preview: {
     select: {
       title: "name",
       subtitle: "category",
       media: "image",
+      onSale: "onSale",
+    },
+    prepare({ title, subtitle, media, onSale }) {
+      return {
+        title: onSale ? `🏷️ ${title}` : title,
+        subtitle,
+        media,
+      };
     },
   },
 });
