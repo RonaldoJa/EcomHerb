@@ -8,7 +8,10 @@ const PRODUCT_FIELDS = `
   category,
   inStock,
   onSale,
-  salePrice
+  salePrice,
+  maxQuantity,
+  bulkDiscountMinQty,
+  bulkDiscountPercent
 `;
 
 export const ALL_PRODUCTS_QUERY = `*[_type == "product"] | order(_createdAt desc) {

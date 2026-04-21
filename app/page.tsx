@@ -50,28 +50,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Ofertas — Lemon swatch (only when there are sale products) */}
-      {saleProducts.length > 0 && (
-        <section id="ofertas" className="bg-[#d08a11] py-14 px-4 sm:px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[1.08px] text-[#f8cc65] mb-1">
-                  Tiempo limitado
-                </p>
-                <h2 className="text-2xl sm:text-3xl font-semibold text-white leading-tight flex items-center gap-2">
-                  🏷️ Ofertas especiales
-                </h2>
-              </div>
-              <Link href="/catalogo"
-                className="text-sm text-[#f8cc65] hover:text-white transition-colors font-medium self-start sm:self-auto">
-                Ver catálogo completo →
-              </Link>
-            </div>
-            <ProductGrid products={saleProducts} />
-          </div>
-        </section>
-      )}
 
       {/* Categories section — Matcha swatch */}
       <section className="bg-[#02492a] py-14 px-4 sm:px-6">
@@ -137,6 +115,28 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Ofertas especiales */}
+      {saleProducts.length > 0 && (
+        <section id="ofertas" className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[1.08px] text-[#fc7981] mb-1">
+                Tiempo limitado
+              </p>
+              <h2 className="text-3xl font-semibold text-black leading-tight flex items-center gap-2" style={{ letterSpacing: "-0.88px" }}>
+                🏷️ Ofertas especiales
+              </h2>
+            </div>
+            <Link href="/catalogo">
+              <Button variant="ghost" className="hidden sm:flex text-sm px-4 py-2">
+                Ver catálogo
+              </Button>
+            </Link>
+          </div>
+          <ProductGrid products={saleProducts} />
+        </section>
+      )}
 
       {/* Featured Products */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">

@@ -62,6 +62,28 @@ export const productSchema = defineType({
       initialValue: true,
     }),
     defineField({
+      name: "maxQuantity",
+      title: "Cantidad máxima por pedido",
+      type: "number",
+      initialValue: 6,
+      description: "Máximo de unidades que un cliente puede pedir. Por defecto: 6.",
+      validation: (rule) => rule.min(1).max(100).integer(),
+    }),
+    defineField({
+      name: "bulkDiscountMinQty",
+      title: "Descuento por volumen — desde (unidades)",
+      type: "number",
+      description: "Cantidad mínima para activar el descuento por volumen. Ej: 3.",
+      validation: (rule) => rule.min(2).integer(),
+    }),
+    defineField({
+      name: "bulkDiscountPercent",
+      title: "Descuento por volumen — porcentaje (%)",
+      type: "number",
+      description: "Porcentaje de descuento al comprar la cantidad mínima. Ej: 10 = 10% off.",
+      validation: (rule) => rule.min(1).max(80),
+    }),
+    defineField({
       name: "onSale",
       title: "¿En oferta?",
       type: "boolean",

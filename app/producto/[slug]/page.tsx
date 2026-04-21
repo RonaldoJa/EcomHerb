@@ -3,7 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getProductBySlug, getAllProducts } from "@/services/productService";
 import { formatPrice } from "@/lib/utils/formatPrice";
-import { getEffectivePrice, getDiscountPercent } from "@/lib/utils/saleUtils";
+import { getEffectivePrice, getDiscountPercent, getMaxQuantity } from "@/lib/utils/saleUtils";
 import { AddToCartButton } from "@/components/product/AddToCartButton";
 import { STORE_NAME } from "@/lib/constants";
 
@@ -42,6 +42,7 @@ export default async function ProductoPage({ params }: PageProps) {
 
   const effectivePrice = getEffectivePrice(product);
   const discountPercent = getDiscountPercent(product);
+  const maxQty = getMaxQuantity(product);
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
@@ -113,6 +114,23 @@ export default async function ProductoPage({ params }: PageProps) {
           </div>
 
           <AddToCartButton product={product} />
+
+          {/* Bulk discount banner */}
+          {product.bulkDiscountMinQty && product.bulkDiscountPercent && (
+            <div className="flex items-center gap-3 p-4 rounded-2xl bg-[#f0fdf4] border border-[#84e7a5]">
+              <span className="text-xl shrink-0">🎁</span>
+              <p className="text-sm text-[#02492a] font-medium">
+                Compra <strong>{product.bulkDiscountMinQty}+</strong> unidades y obtén un{" "}
+                <strong>{product.bulkDiscountPercent}% de descuento</strong> adicional automático.
+              </p>
+            </div>
+          )}
+
+          {/* Info row */}
+          <div className="flex items-center gap-4 text-xs text-[#9f9b93]">
+            <span>📦 Máx. {maxQty} unidades por pedido</span>
+            {product.inStock && <span className="text-[#078a52] font-medium">✓ En stock</span>}
+          </div>
 
           <div className="p-4 rounded-2xl border border-dashed border-[#dad4c8] bg-white text-sm text-[#9f9b93] leading-relaxed">
             Al hacer clic en <strong className="text-black">"Agregar al carrito"</strong> y luego en{" "}

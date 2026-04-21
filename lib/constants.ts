@@ -9,6 +9,7 @@ export const STORE_INSTAGRAM = "https://instagram.com/elherbario";
 export const STORE_FACEBOOK = "https://facebook.com/elherbario";
 
 export const CART_STORAGE_KEY = "ecomm_cart";
+export const DEFAULT_MAX_QUANTITY = 6;
 
 export const PRODUCT_CATEGORIES = [
   "Proteínas",

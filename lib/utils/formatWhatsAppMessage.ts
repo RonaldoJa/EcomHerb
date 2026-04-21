@@ -1,13 +1,16 @@
 import type { ICartItem } from "@/types";
 import { formatPrice } from "./formatPrice";
-import { getEffectivePrice } from "./saleUtils";
+import { getBulkUnitPrice, getItemTotal, hasBulkDiscount } from "./saleUtils";
 import { STORE_NAME, WHATSAPP_API_URL, WHATSAPP_NUMBER } from "../constants";
 
 export function formatWhatsAppMessage(items: ICartItem[], total: number): string {
   const lines = items.map((item) => {
-    const unitPrice = getEffectivePrice(item);
     const saleTag = item.onSale ? " 🏷️" : "";
-    return `• ${item.name}${saleTag} x${item.quantity} — ${formatPrice(unitPrice * item.quantity)}`;
+    const bulkTag = hasBulkDiscount(item, item.quantity)
+      ? ` (−${item.bulkDiscountPercent}% vol.)`
+      : "";
+    const lineTotal = getItemTotal(item, item.quantity);
+    return `• ${item.name}${saleTag} x${item.quantity}${bulkTag} — ${formatPrice(lineTotal)}`;
   });
 
   const message = [
