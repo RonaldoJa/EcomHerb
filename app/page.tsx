@@ -21,14 +21,14 @@ export default async function HomePage() {
       <section className="bg-[#faf9f7] border-b border-[#dad4c8]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 flex flex-col items-center text-center gap-6">
           <span className="inline-block bg-[#faf9f7] border border-[#dad4c8] text-[#55534e] text-xs font-semibold uppercase tracking-[1.08px] px-3 py-1 rounded-full">
-            Envíos a todo el país
+            Suplementos deportivos · Envíos a todo el país
           </span>
-          <h1 className="text-4xl sm:text-6xl font-semibold text-black leading-tight tracking-tight max-w-2xl"
+          <h1 className="text-4xl sm:text-6xl font-semibold text-black leading-tight max-w-2xl"
             style={{ letterSpacing: "-2px" }}>
-            Productos que te van a encantar
+            Suplementos para llevar tu entrenamiento al siguiente nivel
           </h1>
           <p className="text-lg text-[#9f9b93] max-w-lg leading-relaxed">
-            Explora nuestro catálogo y haz tu pedido en segundos directo por WhatsApp. Sin formularios, sin complicaciones.
+            Proteínas, creatinas, vitaminas y más. Haz tu pedido en segundos directo por WhatsApp. Sin formularios, sin complicaciones.
           </p>
           <div className="flex gap-3 flex-wrap justify-center mt-2">
             <Link href="/catalogo">
@@ -45,26 +45,65 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Swatch section — Matcha */}
-      <section className="bg-[#02492a] py-12 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[1.08px] text-[#84e7a5] mb-1">
-              Fácil y rápido
-            </p>
-            <h2 className="text-2xl sm:text-3xl font-semibold text-white leading-tight">
-              Compra en 3 pasos
-            </h2>
+      {/* Categories section — Matcha swatch */}
+      <section className="bg-[#02492a] py-14 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[1.08px] text-[#84e7a5] mb-1">
+                Lo que encontrarás
+              </p>
+              <h2 className="text-2xl sm:text-3xl font-semibold text-white leading-tight">
+                Categorías
+              </h2>
+            </div>
+            <Link href="/catalogo"
+              className="text-sm text-[#84e7a5] hover:text-white transition-colors font-medium self-start sm:self-auto">
+              Ver todo el catálogo →
+            </Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-center sm:text-left">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { step: "01", text: "Elige tu producto" },
-              { step: "02", text: "Agrega al carrito" },
-              { step: "03", text: "Pide por WhatsApp" },
-            ].map(({ step, text }) => (
-              <div key={step} className="flex flex-col items-center sm:items-start gap-1">
-                <span className="text-[#84e7a5] font-mono text-sm font-bold">{step}</span>
-                <span className="text-white font-medium">{text}</span>
+              { cat: "Proteínas", emoji: "💪", color: "bg-[#084d33]" },
+              { cat: "Creatinas", emoji: "⚡", color: "bg-[#0a5c3d]" },
+              { cat: "Ganadores de peso", emoji: "🏋️", color: "bg-[#086040]" },
+              { cat: "Vitaminas", emoji: "💊", color: "bg-[#0d6b47]" },
+              { cat: "Pre-entrenos", emoji: "🔥", color: "bg-[#0a5c3d]" },
+              { cat: "Quemadores", emoji: "🌡️", color: "bg-[#084d33]" },
+              { cat: "Snacks", emoji: "🥜", color: "bg-[#0d6b47]" },
+              { cat: "Varios", emoji: "📦", color: "bg-[#086040]" },
+            ].map(({ cat, emoji, color }) => (
+              <Link
+                key={cat}
+                href={`/catalogo?categoria=${encodeURIComponent(cat)}`}
+                className={`${color} border border-[#1a7a4f] rounded-2xl p-4 flex flex-col gap-2 hover:border-[#84e7a5] transition-colors group`}
+              >
+                <span className="text-2xl">{emoji}</span>
+                <span className="text-white text-sm font-medium leading-tight group-hover:text-[#84e7a5] transition-colors">
+                  {cat}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How it works — 3 steps */}
+      <section className="border-b border-[#dad4c8] bg-[#faf9f7] py-12 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {[
+              { step: "01", title: "Elige tu producto", desc: "Filtra por categoría o busca directamente lo que necesitas.", emoji: "🛍️" },
+              { step: "02", title: "Agrega al carrito", desc: "Acumula todos tus productos en un solo pedido.", emoji: "🛒" },
+              { step: "03", title: "Pide por WhatsApp", desc: "Te enviamos un mensaje pre-redactado. Sin registros, sin tarjetas.", emoji: "💬" },
+            ].map(({ step, title, desc, emoji }) => (
+              <div key={step} className="flex gap-4 items-start">
+                <span className="text-2xl shrink-0">{emoji}</span>
+                <div>
+                  <p className="text-xs font-mono font-bold text-[#9f9b93] mb-0.5">{step}</p>
+                  <p className="font-semibold text-black text-base mb-1">{title}</p>
+                  <p className="text-sm text-[#9f9b93] leading-relaxed">{desc}</p>
+                </div>
               </div>
             ))}
           </div>
