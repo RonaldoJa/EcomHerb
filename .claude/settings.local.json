@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --no-src-dir --import-alias \"@/*\" --no-turbopack --yes)",
+      "Bash(mv /c/Users/ronaldo.aguirre/Documents/Proyecto/ecomm/*.md /c/Users/ronaldo.aguirre/Documents/Proyecto/ecomm/docs/)",
+      "Bash(mv /c/Users/ronaldo.aguirre/Documents/Proyecto/ecomm/*.html /c/Users/ronaldo.aguirre/Documents/Proyecto/ecomm/docs/)"
+    ]
+  }
+}
