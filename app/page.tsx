@@ -79,7 +79,6 @@ export default async function HomePage() {
                 background: "#16a34a",
                 boxShadow: "0 4px 16px rgba(34,197,94,0.4)",
               }}
-              onMouseEnter={undefined}
             >
               Ver catálogo completo →
             </Link>
