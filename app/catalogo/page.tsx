@@ -21,17 +21,23 @@ export default async function CatalogoPage({ searchParams }: PageProps) {
   ]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-      <div className="mb-8">
-        <p className="text-xs font-semibold uppercase tracking-[1.08px] text-[#9f9b93] mb-1">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+      <div className="mb-6">
+        <p
+          className="text-[11px] font-bold uppercase mb-1.5"
+          style={{ color: "#16a34a", letterSpacing: "1px" }}
+        >
           Suplementos deportivos
         </p>
         <h1
-          className="text-4xl font-semibold text-black leading-tight"
-          style={{ letterSpacing: "-1.32px" }}
+          className="text-[28px] font-extrabold"
+          style={{ color: "#0f1f14", letterSpacing: "-0.5px" }}
         >
-          Catálogo completo
+          Catálogo
         </h1>
+        <p className="text-[14px] mt-1" style={{ color: "#86a896" }}>
+          {products.length} productos disponibles
+        </p>
       </div>
 
       <CatalogoClient products={products} initialCategory={categoria ?? ""} />

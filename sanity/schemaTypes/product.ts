@@ -1,4 +1,4 @@
-import { defineType, defineField } from "sanity";
+import { defineType, defineField, defineArrayMember } from "sanity";
 
 export const productSchema = defineType({
   name: "product",
@@ -21,9 +21,22 @@ export const productSchema = defineType({
     defineField({
       name: "description",
       title: "Descripción",
-      type: "text",
-      rows: 4,
-      validation: (rule) => rule.required().min(10),
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "block",
+          styles: [{ title: "Normal", value: "normal" }],
+          lists: [{ title: "Viñetas", value: "bullet" }],
+          marks: {
+            decorators: [
+              { title: "Negrita", value: "strong" },
+              { title: "Cursiva", value: "em" },
+            ],
+            annotations: [],
+          },
+        }),
+      ],
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: "price",
@@ -54,6 +67,13 @@ export const productSchema = defineType({
           { title: "Varios", value: "Varios" },
         ],
       },
+    }),
+    defineField({
+      name: "isBestSeller",
+      title: "¿Best Seller?",
+      type: "boolean",
+      initialValue: false,
+      description: "Activa para marcar el producto con la insignia '★ Best Seller'.",
     }),
     defineField({
       name: "inStock",
@@ -111,10 +131,12 @@ export const productSchema = defineType({
       subtitle: "category",
       media: "image",
       onSale: "onSale",
+      isBestSeller: "isBestSeller",
     },
-    prepare({ title, subtitle, media, onSale }) {
+    prepare({ title, subtitle, media, onSale, isBestSeller }) {
+      const badges = [onSale ? "🏷️" : "", isBestSeller ? "★" : ""].filter(Boolean).join(" ");
       return {
-        title: onSale ? `🏷️ ${title}` : title,
+        title: badges ? `${badges} ${title}` : title,
         subtitle,
         media,
       };
