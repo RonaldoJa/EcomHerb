@@ -17,7 +17,11 @@
       "Bash(cmd.exe /c \"taskkill /PID 17068 /F\")",
       "PowerShell(Stop-Process -Id 17068 -Force)",
       "PowerShell(netstat -ano)",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/catalogo)"
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/catalogo)",
+      "WebFetch(domain:api.anthropic.com)",
+      "Bash(gh pr create --title 'feat: rediseño El Herbario — paleta verde, Portable Text y campo isBestSeller' --body ' *)",
+      "Bash(where gh *)",
+      "Bash(winget list *)"
     ]
   }
 }
