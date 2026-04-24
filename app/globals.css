@@ -78,3 +78,14 @@ body {
   from { opacity: 0; transform: translateX(24px); }
   to { opacity: 1; transform: translateX(0); }
 }
+
+/* Mobile filter sheet slide-up */
+@keyframes slideInUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+/* Body background for new design */
+body {
+  background-color: #fafafa;
+}

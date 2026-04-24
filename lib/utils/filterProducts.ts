@@ -1,5 +1,6 @@
 import type { IProduct } from "@/types";
 import type { SortOption } from "@/lib/constants";
+import { portableTextToPlain } from "./portableTextToPlain";
 
 export function filterProducts(
   products: IProduct[],
@@ -14,7 +15,7 @@ export function filterProducts(
     result = result.filter(
       (p) =>
         p.name.toLowerCase().includes(q) ||
-        p.description.toLowerCase().includes(q) ||
+        portableTextToPlain(p.description).toLowerCase().includes(q) ||
         p.category?.toLowerCase().includes(q)
     );
   }

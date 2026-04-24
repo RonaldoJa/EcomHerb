@@ -1,11 +1,27 @@
+export type DescriptionBlock = {
+  _type: string;
+  _key: string;
+  style?: string;
+  listItem?: string;
+  level?: number;
+  children?: Array<{
+    _type: string;
+    _key: string;
+    text: string;
+    marks?: string[];
+  }>;
+  markDefs?: unknown[];
+};
+
 export interface IProduct {
   _id: string;
   name: string;
   slug: { current: string };
-  description: string;
+  description: DescriptionBlock[];
   price: number;
   imageUrl: string;
   category: string;
+  isBestSeller: boolean;
   inStock: boolean;
   onSale: boolean;
   salePrice?: number;

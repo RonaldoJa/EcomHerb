@@ -19,9 +19,9 @@ export function CartItem({ item }: CartItemProps) {
   const lineTotal = getItemTotal(item, item.quantity);
 
   return (
-    <div className="flex gap-3 py-4 border-b border-[#eee9df] last:border-none">
+    <div className="flex gap-3 py-4 border-b last:border-none" style={{ borderColor: "#f0fdf4" }}>
       {/* Thumbnail */}
-      <div className="relative w-16 h-16 shrink-0 rounded-xl overflow-hidden border border-[#dad4c8] bg-[#faf9f7]">
+      <div className="relative w-16 h-16 shrink-0 rounded-xl overflow-hidden" style={{ border: "1.5px solid #dcfce7", background: "#f0fdf4" }}>
         {item.imageUrl ? (
           <Image src={item.imageUrl} alt={item.name} fill className="object-cover" sizes="64px" />
         ) : (
@@ -55,7 +55,7 @@ export function CartItem({ item }: CartItemProps) {
           <button
             onClick={() => updateQuantity(item._id, item.quantity - 1)}
             aria-label="Reducir cantidad"
-            className="w-7 h-7 flex items-center justify-center rounded-lg border border-[#dad4c8] hover:border-black transition-colors disabled:opacity-40"
+            className="w-7 h-7 flex items-center justify-center rounded-lg transition-colors disabled:opacity-40" style={{ border: "1.5px solid #dcfce7" }}
           >
             <Minus size={12} />
           </button>
@@ -64,7 +64,7 @@ export function CartItem({ item }: CartItemProps) {
             onClick={() => updateQuantity(item._id, item.quantity + 1)}
             aria-label="Aumentar cantidad"
             disabled={item.quantity >= maxQty}
-            className="w-7 h-7 flex items-center justify-center rounded-lg border border-[#dad4c8] hover:border-black transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="w-7 h-7 flex items-center justify-center rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed" style={{ border: "1.5px solid #dcfce7" }}
           >
             <Plus size={12} />
           </button>
@@ -87,7 +87,9 @@ export function CartItem({ item }: CartItemProps) {
         <button
           onClick={() => removeFromCart(item._id)}
           aria-label="Eliminar producto"
-          className="p-1.5 rounded-lg text-[#9f9b93] hover:text-[#fc7981] hover:bg-[#fff5f5] transition-colors"
+          className="p-1.5 rounded-lg transition-colors" style={{ color: "#aab9b1" }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#ef4444"; }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#aab9b1"; }}
         >
           <Trash2 size={14} />
         </button>

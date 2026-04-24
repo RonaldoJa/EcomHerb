@@ -6,6 +6,7 @@ const PRODUCT_FIELDS = `
   price,
   "imageUrl": image.asset->url,
   category,
+  isBestSeller,
   inStock,
   onSale,
   salePrice,
